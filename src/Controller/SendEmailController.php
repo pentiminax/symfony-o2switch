@@ -17,6 +17,7 @@ class SendEmailController extends AbstractController
     public function __invoke(MessageBusInterface $bus, #[MapRequestPayload] SendEmailRequest $request): Response
     {
         $email = (new Email())
+            ->from('pentiminax@gmail.com')
             ->to($request->email)
             ->text($request->message);
 
