@@ -9,12 +9,12 @@
         {% block stylesheets %}
         {% endblock %}
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+
     </head>
     <body class="container">
         {% block body %}{% endblock %}
         {% include 'footer.html.twig' %}
+        {% block javascripts %}{% endblock %}
     </body>
 </html>

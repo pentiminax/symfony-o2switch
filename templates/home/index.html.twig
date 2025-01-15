@@ -16,3 +16,36 @@
         </form>
     </main>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+                const form = document.querySelector('#prompt-form');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            console.log(e);
+
+            const prompt = document.getElementById('prompt').value;
+            const loading = document.getElementById('loading');
+            const generatedImage = document.getElementById('generated-image');
+
+            loading.style.display = 'block';
+            generatedImage.style.display = 'none';
+
+            await fetch(`{{ path('generate_image') }}?prompt=${encodeURIComponent(prompt)}`);
+
+            const checkImage = setInterval(async () => {
+                const response = await fetch(`/get-image?prompt=${encodeURIComponent(prompt)}`);
+                const html = await response.text();
+
+                if (html !== '') {
+                    clearInterval(checkImage);
+                    document.getElementById('image-container').innerHTML = html;
+                }
+            }, 2000);
+        });
+    </script>
+{% endblock %}

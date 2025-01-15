@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Dto\SendEmailRequest;
+use App\Message\GenerateImageMessage;
 use App\Service\CacheService;
 use App\Service\OpenAIService;
 use OpenAI\Client;
@@ -22,18 +23,17 @@ use Symfony\Contracts\Cache\ItemInterface;
 class GenerateImageController extends AbstractController
 {
     public function __construct(
-        private readonly CacheService $cacheService,
-        private readonly OpenAIService $openAIService
+        private readonly MessageBusInterface $bus
     ) {
     }
 
     #[Route('/generate-image', name: 'generate_image')]
-    public function __invoke(MessageBusInterface $bus, #[MapQueryParameter] string $prompt): Response
+    public function __invoke(#[MapQueryParameter] string $prompt): Response
     {
-        $url = $this->openAIService->generateImage($prompt);
+        $this->bus->dispatch(new GenerateImageMessage($prompt));
 
-        $this->cacheService->saveGeneratedImageUrl($prompt, $url);
-
-        return $this->redirectToRoute('home.index');
+        return $this->json([
+            'success' => true
+        ]);
     }
 }

@@ -1,6 +1,6 @@
 #image-container {
-    width: 600px;
-    height: 400px;
+    width: 512px;
+    height: 512px;
     border: 2px dashed #ccc;
     display: flex;
     align-items: center;
