@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon Portfolio{% endblock %}
+{% block title %}AI Image Generator{% endblock %}
 
 {% block body %}
     <main class="container">
@@ -21,12 +21,10 @@
     {{ parent() }}
 
     <script>
-                const form = document.querySelector('#prompt-form');
+        const form = document.querySelector('#prompt-form');
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-
-            console.log(e);
 
             const prompt = document.getElementById('prompt').value;
             const loading = document.getElementById('loading');
