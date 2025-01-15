@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-use App\Dto\GenerateImageResponse;
 use OpenAI\Client;
 
 class OpenAIService
