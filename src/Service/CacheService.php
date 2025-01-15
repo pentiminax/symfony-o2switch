@@ -16,10 +16,8 @@ readonly class CacheService
         $key = $this->buildKey($prompt);
         $item = $this->cache->getItem($key);
 
-        if (!$item->isHit()) {
-            $item->set($url);
-            $this->cache->save($item);
-        }
+        $item->set($url);
+        $this->cache->save($item);
     }
 
     public function getGeneratedImageUrlFromPrompt(string $prompt): ?string
